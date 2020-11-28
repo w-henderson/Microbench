@@ -1,14 +1,25 @@
-import times, os, strutils
+import 
+    terminal,
+    strutils,
+    times,
+    os
 
-if paramCount() != 1:
+if paramCount() == 0:
+    setForegroundColor(fgRed)
+    setStyle({styleBright})
     echo "Please enter the command to benchmark as an argument."
+    resetAttributes()
     quit(1)
 
-let command = paramStr(1)
+let command = commandLineParams().join(" ")
 let startTime = cpuTime()
-discard execShellCmd(command)
-let endTime = cpuTime()
 
+discard execShellCmd(command) # Execute the actual command
+
+let endTime = cpuTime()
 let totalTime = endTime - startTime
 
-echo "Process took " & $totalTime & " seconds to complete."
+setForegroundColor(fgGreen)
+setStyle({styleBright})
+echo "\nProcess took " & $totalTime & " seconds to complete."
+resetAttributes()

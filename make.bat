@@ -1,0 +1,1 @@
+nim --outdir:dist -d:release c src/microbench.nim
