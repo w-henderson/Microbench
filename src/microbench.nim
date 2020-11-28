@@ -1,6 +1,7 @@
 import 
     terminal,
     strutils,
+    osproc,
     times,
     os
 
@@ -14,12 +15,12 @@ if paramCount() == 0:
 let command = commandLineParams().join(" ")
 let startTime = cpuTime()
 
-discard execShellCmd(command) # Execute the actual command
+discard execProcess(command) # Execute the actual command
 
 let endTime = cpuTime()
 let totalTime = endTime - startTime
 
 setForegroundColor(fgGreen)
 setStyle({styleBright})
-echo "\nProcess took " & $totalTime & " seconds to complete."
+echo "Process took " & $totalTime & " seconds to complete."
 resetAttributes()
