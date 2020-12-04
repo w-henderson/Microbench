@@ -32,6 +32,12 @@ proc standardDeviation(arr: seq[float]): float =
     let sxx = sumXsqr - ((float)(len(arr)) * pow(mean(arr), 2))
     return sqrt((1 / ((float)(len(arr)) - 1)) * sxx)
 
+proc round2(number: float, dp: int): string =
+    let numberStr = $number
+    let numberParts = numberStr.split(".")
+    if len(numberParts) == 1: return numberStr
+    return numberParts[0] & "." & numberParts[1].substr(0, dp)
+
 proc showBar(value: float) =
     stdout.write("Benchmarking... [")
     let reps: int = (int)value * 40
@@ -82,12 +88,13 @@ setStyle({styleBright})
 
 if iterations == 1: # Simple mode
     echo "Process took " & $benchmarkTimes[0] & " ms to complete."
+
 else: # Advanced mode
     echo &"\n  == MICROBENCH RESULTS FOR: \"{command}\" ==\n"
     resetAttributes()
-    echo &"    Mean running time: {round(mean(benchmarkTimes), 3)} ms"
-    echo &"    Minimum running time: {round(min(benchmarkTimes), 3)} ms"
-    echo &"    Maximum running time: {round(max(benchmarkTimes), 3)} ms"
-    echo &"    Standard deviation of running times: {round(standardDeviation(benchmarkTimes), 3)} ms"
+    echo &"    Mean running time: {round2(mean(benchmarkTimes), 3)} ms"
+    echo &"    Minimum running time: {round2(min(benchmarkTimes), 3)} ms"
+    echo &"    Maximum running time: {round2(max(benchmarkTimes), 3)} ms"
+    echo &"    Standard deviation of running times: {round2(standardDeviation(benchmarkTimes), 3)} ms"
 
 resetAttributes()

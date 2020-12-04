@@ -2,7 +2,7 @@
 
 version       = "0.1.0"
 author        = "William Henderson"
-description   = "A very fast and easy benchmarking program"
+description   = "A lightweight and accurate benchmarker for command-line programs."
 license       = "GPL-3.0"
 srcDir        = "src"
 bin           = @["microbench"]
